@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+
+# Secrets: the ETL reads its de-identification salt from a local file
+# (config/salt.txt) that must never be committed.
+**/config/salt.txt
+salt.txt
+
+# Student data (raw, processed or exported) is never part of this repository.
+**/raw_data/*
+!**/raw_data/README.md
+*.csv
+*.parquet

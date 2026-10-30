@@ -1,0 +1,31 @@
+# LA DASH ETL 相依套件
+# 安裝：pip install -r requirements.txt
+#
+# pandas>=3.0：本專案已於 pandas 3.0.2 完整測試過（Copy-on-Write 與新 string
+# dtype 預設值皆已生效，橫跨 etl.py 全部歷史學期成績檔＋lms_etl.py 全部歷史
+# LMS檔案＋XGBoost模型訓練逐欄位比對一致）。若因故需要在 pandas 2.x 環境
+# 執行，尚未實測。
+pandas>=3.0
+
+# 數值運算／統計（06_merge_grades.py、11_cross_analysis.py 等模組直接
+# import，非僅透過 pandas/scikit-learn 間接安裝；規格書0919原始清單漏列，
+# 本輪審查程式碼 import 語句後補上）
+numpy
+scipy
+
+# .xls（舊版二進位成績檔）讀取引擎
+xlrd
+
+# .xlsx 讀取備援引擎：偵測不到 python-calamine 時自動降級使用（見
+# lms_etl/modules/01_load_lms_excel.py::_HAS_CALAMINE）
+openpyxl
+
+# .xlsx 讀取主引擎（Rust 實作）：較 openpyxl 快約 5.6 倍（單檔實測）／
+# 對 13 個真實歷史 LMS 檔案整體 pipeline 快約 26%，輸出與 openpyxl
+# 逐欄位完全一致。未安裝時會自動降級為 openpyxl（見上）並印出提示。
+python-calamine
+
+# 早期警示模型（XGBoost + BAS 雙模型）
+xgboost
+scikit-learn
+joblib
